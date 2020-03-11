@@ -1,0 +1,24 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+   // 지역 스코프에서 require 선언 가능
+    "global-require": "off",
+    "no-plusplus": 0,
+    "no-param-reassign": 0,
+    // integration, spec 파일에서 devDependencies 참조 허용
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "!**.*.(integration|spec).js"
+        ]
+      }
+    ],
+    // 동적 참조에 대해 경고만 띄우도록 변경
+    "import/no-dynamic-require": 1
+  }
+}

@@ -31,7 +31,7 @@ const getGeoAddr = async (address) => {
   return {
     lat: parsedAddress.y,
     lng: parsedAddress.x,
-  }
+  };
 };
 
 const getMaskInfo = async (geoAddr, m = 300) => {
@@ -44,26 +44,24 @@ const getMaskInfo = async (geoAddr, m = 300) => {
 
   return _.chain(resp)
     .get('data.stores', [])
-    .map(store => {
+    .map((store) => {
       const stockDate = moment(store.stock_at, 'YYYY/MM/DD HH:mm:ss');
       return {
         stockDate,
         name: store.name,
         addr: store.addr,
         remain: _.get(REMAIN, store.remain_stat, '알 수 없음'),
-      }
+      };
     })
     .value();
 };
 
-const makeText = (maskInfo) => _.map(maskInfo, it => {
-    return [
-      `약국명: ${it.name}`,
-      `주소: ${it.addr}`,
-      `입고시간: ${it.stockDate.format('YYYY년 MM월 DD일 HH시 mm분 ss초')}`,
-      `재고: ${it.remain}`,
-    ].join('\n');
-  })
+const makeText = (maskInfo) => _.map(maskInfo, (it) => [
+  `약국명: ${it.name}`,
+  `주소: ${it.addr}`,
+  `입고시간: ${it.stockDate.format('YYYY년 MM월 DD일 HH시 mm분 ss초')}`,
+  `재고: ${it.remain}`,
+].join('\n'))
   .join('\n\n');
 
 const sendMessage = async (text) => {
@@ -80,6 +78,6 @@ module.exports.exec = async (data) => {
   }
   const geoAddr = await getGeoAddr(data.address);
   const maskInfo = await getMaskInfo(geoAddr, 300);
-  const text = makeText(maskInfo); 
+  const text = makeText(maskInfo);
   await sendMessage(text);
 };

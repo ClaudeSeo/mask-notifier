@@ -4,7 +4,8 @@
   "description": "마스크 입고 알리미",
   "scripts": {
     "invoke": "sls invoke local -f notifier --stage development --path data/example.json",
-    "deploy:prod": "sls deploy --stage production"
+    "deploy:prod": "sls deploy --stage production",
+    "lint": "eslint ./src/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,9 @@
   },
   "homepage": "https://github.com/ClaudeSeo/mask-notifier#readme",
   "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1",
     "serverless": "^1.66.0",
     "serverless-prune-plugin": "^1.4.2"
   },
