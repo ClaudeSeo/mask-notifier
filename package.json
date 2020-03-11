@@ -1,0 +1,28 @@
+{
+  "name": "mask-notifier",
+  "version": "0.0.1",
+  "description": "마스크 입고 알리미",
+  "scripts": {
+    "invoke": "sls invoke local -f notifier --stage development --path data/example.json",
+    "deploy:prod": "sls deploy --stage production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClaudeSeo/mask-notifier.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ClaudeSeo/mask-notifier/issues"
+  },
+  "homepage": "https://github.com/ClaudeSeo/mask-notifier#readme",
+  "devDependencies": {
+    "serverless": "^1.66.0",
+    "serverless-prune-plugin": "^1.4.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "axios": "^0.19.2"
+  }
+}

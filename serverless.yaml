@@ -1,0 +1,30 @@
+service: mask-notifier 
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'development'}
+  region: ${opt:region, 'ap-northeast-2'}
+  logRetentionInDays: 30
+  versionFunctions: false
+  timeout: 20 
+  memorySize: 128
+  environment:
+    TZ: Asia/Seoul
+    NODE_ENV: ${opt:stage, 'development'}
+
+functions:
+  notifier:
+    handler: src.exec
+    description: 마스크 입고 알리미 
+    memorySize: 192 
+    environment:
+      KAKAO_API_KEY: ${file(./config.${self:provider.stage}.json):KAKAO_API_KEY} 
+      TELEGRAM_BOT_TOKEN: ${file(./config.${self:provider.stage}.json):TELEGRAM_BOT_TOKEN}
+      TELEGRAM_BOT_CHAT_ID: ${file(./config.${self:provider.stage}.json):TELEGRAM_BOT_CHAT_ID}
+    events:
+      - schedule:
+         rate: cron(0 1-7 * * ? *)
+         enabled: true
+         input:
+           address: ${file(./config.${self:provider.stage}.json):ADDRESS}
